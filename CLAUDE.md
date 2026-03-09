@@ -2,27 +2,25 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Build & Run (WSL)
+## Build & Run (WSL Debian)
+
+Access WSL via: `wsl -d debian`
 
 Install the SDL2 dependency once:
 ```bash
 sudo apt install libsdl2-dev
 ```
 
-Configure and build:
+Configure and build (build dir must be on WSL filesystem, not /mnt/d):
 ```bash
-cmake -B build -DCMAKE_BUILD_TYPE=Debug
-cmake --build build
-./build/snake
+CXX=/usr/bin/g++ cmake -S /mnt/d/HomeProjects/snake -B ~/snake-build -DCMAKE_BUILD_TYPE=Debug
+cmake --build ~/snake-build
+~/snake-build/snake
 ```
 
 For a release build: `-DCMAKE_BUILD_TYPE=Release`
 
-Requires GCC 13+ for `std::format` and `std::ranges`. Install on Ubuntu 22.04 if needed:
-```bash
-sudo apt install gcc-13 g++-13
-cmake -B build -DCMAKE_CXX_COMPILER=g++-13
-```
+GCC 14 is available on Debian — no need to specify g++-13.
 
 ## Controls
 

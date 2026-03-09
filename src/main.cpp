@@ -26,6 +26,16 @@ int main() {
                     case SDL_QUIT:
                         running = false;
                         break;
+                    case SDL_MOUSEBUTTONDOWN:
+                        if (event.button.button == SDL_BUTTON_LEFT &&
+                            game.state() == GameState::GameOver) {
+                            SDL_Rect btn = Renderer::restartButtonRect();
+                            int mx = event.button.x, my = event.button.y;
+                            if (mx >= btn.x && mx < btn.x + btn.w &&
+                                my >= btn.y && my < btn.y + btn.h)
+                                game.restart();
+                        }
+                        break;
                     case SDL_KEYDOWN:
                         switch (event.key.keysym.sym) {
                             case SDLK_UP:    [[fallthrough]];

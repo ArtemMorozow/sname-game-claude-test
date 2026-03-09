@@ -16,6 +16,9 @@ public:
 
     void render(const Game& game);
 
+    // Returns the screen rect of the "Play Again" button (for hit-testing in main)
+    static SDL_Rect restartButtonRect();
+
 private:
     void fillCell(int x, int y, SDL_Color color);
     void drawGameOver();

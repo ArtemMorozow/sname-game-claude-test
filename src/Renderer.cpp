@@ -31,12 +31,36 @@ void Renderer::fillCell(int x, int y, SDL_Color c) {
     SDL_RenderFillRect(renderer_, &rect);
 }
 
+SDL_Rect Renderer::restartButtonRect() {
+    constexpr int BtnW = 120, BtnH = 44;
+    return {(WindowWidth - BtnW) / 2, (WindowHeight - BtnH) / 2, BtnW, BtnH};
+}
+
 void Renderer::drawGameOver() {
+    // Dark overlay
     SDL_SetRenderDrawBlendMode(renderer_, SDL_BLENDMODE_BLEND);
     SDL_SetRenderDrawColor(renderer_, 0, 0, 0, 160);
     SDL_Rect overlay{0, 0, WindowWidth, WindowHeight};
     SDL_RenderFillRect(renderer_, &overlay);
     SDL_SetRenderDrawBlendMode(renderer_, SDL_BLENDMODE_NONE);
+
+    // "Play Again" button background
+    SDL_Rect btn = restartButtonRect();
+    SDL_SetRenderDrawColor(renderer_, 60, 180, 75, 255);
+    SDL_RenderFillRect(renderer_, &btn);
+
+    // Button border
+    SDL_SetRenderDrawColor(renderer_, 120, 230, 80, 255);
+    SDL_RenderDrawRect(renderer_, &btn);
+
+    // Draw a pixel-art play triangle (▶) centred in the button
+    int cx = btn.x + btn.w / 2 - 4;
+    int cy = btn.y + btn.h / 2;
+    SDL_SetRenderDrawColor(renderer_, 255, 255, 255, 255);
+    for (int row = 0; row < 12; ++row) {
+        int half = row / 2;
+        SDL_RenderDrawLine(renderer_, cx + row, cy - half, cx + row, cy + half);
+    }
 }
 
 void Renderer::updateTitle(const Game& game) {
