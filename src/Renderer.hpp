@@ -4,26 +4,26 @@
 
 class Renderer {
 public:
-    static constexpr int CellSize    = 30;
-    static constexpr int WindowWidth  = Game::GridWidth  * CellSize;
-    static constexpr int WindowHeight = Game::GridHeight * CellSize;
+	static constexpr int CellSize     = 30;
+	static constexpr int WindowWidth  = Game::GridWidth  * CellSize;
+	static constexpr int WindowHeight = Game::GridHeight * CellSize;
 
-    Renderer();
-    ~Renderer();
+	Renderer();
+	~Renderer();
 
-    Renderer(const Renderer&)            = delete;
-    Renderer& operator=(const Renderer&) = delete;
+	Renderer( Renderer const& )            = delete;
+	Renderer& operator=( Renderer const& ) = delete;
 
-    void render(const Game& game);
+	void render( Game const& game );
 
-    // Returns the screen rect of the "Play Again" button (for hit-testing in main)
-    static SDL_Rect restartButtonRect();
+	// Returns the screen rect of the "Play Again" button (for hit-testing in main)
+	static SDL_Rect restartButtonRect();
 
 private:
-    void fillCell(int x, int y, SDL_Color color);
-    void drawGameOver();
-    void updateTitle(const Game& game);
+	void fillCell( int x, int y, SDL_Color color );
+	void drawGameOver();
+	void updateTitle( Game const& game );
 
-    SDL_Window*   window_   = nullptr;
-    SDL_Renderer* renderer_ = nullptr;
+	SDL_Window*   window_   = nullptr;
+	SDL_Renderer* renderer_ = nullptr;
 };
